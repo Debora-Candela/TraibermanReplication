@@ -25,8 +25,8 @@ This project ensures full reproducibility by utilizing a localized Julia environ
 To download the repository and start Julia, run the following commands in your standard terminal:
 
 ```bash
-git clone [https://github.com/Debora/TraibermanReplication.jl](https://github.com/Debora/TraibermanReplication.jl)
-cd TraibermanReplication.jl
+git clone https://github.com/Debora-Candela/TraibermanReplication.git
+cd TraibermanReplication/src/TraibermanReplication.jl
 julia 
 ```
 Then, to replicate easily the outputs or test the environment, run the following commands in the Julia REPL:
