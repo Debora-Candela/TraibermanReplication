@@ -78,7 +78,7 @@ Moreover, to rigorously test the EM algorithm, the synthetic DGP was constructed
 
   1. *Destination appeal* ($\delta_d$): A baseline value (an intrinsic attractiveness) inherent to each occupation;
   
-  2. *Stay bonus* ($c \cdot \mathbb{I}(d=o)$): Instead of subtracting a switching cost, the code adds a utility bonus if the worker remains in the same occupation (`dest == current_occ`), equivalent to labor market frictions;
+  2. *Stay bonus* ($c \cdot \mathbb{I}(d=o)$): Instead of subtracting a switching cost, the code adds a utility bonus if the worker remains in the same occupation, equivalent to labor market frictions;
   
   3. *Type-match premium* ($\tau_{d,k}$): A utility premium assigned if the worker's "latent type" (unobserved skills or comparative advantage) aligns well with that specific occupation;
   
