@@ -44,8 +44,7 @@ run_first_stage_pipeline() = run()
 
 # this function executes the project's internal test suite
 function run_tests()
-    import Pkg
-    Pkg.test("TraibermanReplication")
+    Base.run(`$(Base.julia_cmd()) --project=. -e "using Pkg; Pkg.test(\"TraibermanReplication\")"`)
 end
 
 end
