@@ -24,6 +24,16 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      # --- INIZIO AGGIUNTA PER JULIA ---
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: '1' # Prende l'ultima versione stabile
+          
+      - name: Instantiate Julia environment
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+      # --- FINE AGGIUNTA PER JULIA ---
+
       - name: Render report
         run: quarto render report.qmd --to html --output index.html --output-dir _site
 
