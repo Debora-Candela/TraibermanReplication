@@ -8,6 +8,7 @@ author:
     affiliations:
       - name: "University of Turin"
       - name: "Collegio Carlo Alberto"
+engine: julia
 format:
   html:
     toc: true
