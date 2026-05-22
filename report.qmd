@@ -8,19 +8,6 @@ author:
     affiliations:
       - name: "University of Turin"
       - name: "Collegio Carlo Alberto"
-engine: julia
-format:
-  html:
-    toc: true
-    toc-location: right
-    toc-title: "In this page"
-    toc-depth: 3
-    number-sections: false
-    theme: cosmo
-execute:
-  echo: true
-  warning: false
-  message: false
 ---
 
 ::: {.callout-note}
@@ -213,32 +200,10 @@ The author's provided MATLAB routine for the first-stage EM algorithm explicitly
 Table4 = TraibermanReplication.run(results)
 ```
 
-```{julia}
-#| eval: true
-#| echo: false
-#| warning: false
-#| message: false
-#| cache: true
-#| output: asis
-
-using TraibermanReplication
-
-results = redirect_stdio(stdout=devnull, stderr=devnull) do
-    TraibermanReplication.run()
-end
-
-table4 = TraibermanReplication.table4_like(results)
-
-println("| Type | Classification | Mean theta | Mean income (relative) | corr(CA, wage) |")
-println("|:---:|:---:|:---:|:---:|:---:|")
-for r in eachrow(table4)
-    theta = round(r.Mean_theta, digits=3)
-    inc = round(r.Mean_income_relative, digits=3)
-    corr = round(r.corr_CA_wage, digits=3)
-    
-    println("| $(r.Type) | $(r.Classification) | $theta | $inc | $corr |")
-end
-```
+| Type | Classification | Mean theta | Mean income (relative) | corr(CA, wage) |
+| :---: | :---: | :---: | :---: | :---: |
+| 1 | Synthetic L | 0.474 | 0.909 | -0.989 |
+| 2 | Synthetic H | 0.526 | 1.0 | 0.989 |
 
 This table should be interpreted as a computational exhibit, not as a numerical replication of the original Table 4. It shows that the Julia implementation can generate posterior type probabilities, type-level income summaries, and a comparative-advantage-style statistic from the first-stage output.
 
