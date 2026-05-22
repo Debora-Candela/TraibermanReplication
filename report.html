@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Debora Candela">
+
+<title>CCA CompEcon Replication Project</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="report_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_files/libs/bootstrap/bootstrap-67270d1595a62d14f123c043d4fb2f18.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">In this page</h2>
+   
+  <ul>
+  <li><a href="#paper-and-replication-package" id="toc-paper-and-replication-package" class="nav-link active" data-scroll-target="#paper-and-replication-package">Paper and Replication Package</a></li>
+  <li><a href="#high-level-description-of-computational-problem-in-paper" id="toc-high-level-description-of-computational-problem-in-paper" class="nav-link" data-scroll-target="#high-level-description-of-computational-problem-in-paper">High Level Description of Computational Problem in Paper</a>
+  <ul class="collapse">
+  <li><a href="#the-theoretical-model-and-the-synthetic-dgp" id="toc-the-theoretical-model-and-the-synthetic-dgp" class="nav-link" data-scroll-target="#the-theoretical-model-and-the-synthetic-dgp">1. The Theoretical Model and the Synthetic DGP</a></li>
+  <li><a href="#the-first-stage-em-algorithm" id="toc-the-first-stage-em-algorithm" class="nav-link" data-scroll-target="#the-first-stage-em-algorithm">2. The First-Stage EM Algorithm</a></li>
+  </ul></li>
+  <li><a href="#computational-requirements" id="toc-computational-requirements" class="nav-link" data-scroll-target="#computational-requirements">Computational Requirements</a></li>
+  <li><a href="#my-computational-setup" id="toc-my-computational-setup" class="nav-link" data-scroll-target="#my-computational-setup">My Computational setup</a></li>
+  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication">Replication</a>
+  <ul class="collapse">
+  <li><a href="#execution-and-output-structure" id="toc-execution-and-output-structure" class="nav-link" data-scroll-target="#execution-and-output-structure">Execution and Output Structure</a></li>
+  <li><a href="#table-4" id="toc-table-4" class="nav-link" data-scroll-target="#table-4">Table 4</a></li>
+  <li><a href="#unit-testing-and-code-verification" id="toc-unit-testing-and-code-verification" class="nav-link" data-scroll-target="#unit-testing-and-code-verification">Unit Testing and Code Verification</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">CCA <span style="color: #9b59b6;">CompEcon</span> Replication Project</h1>
+<p class="subtitle lead">Replication of ‘Occupations and Import Competition: Evidence from Denmark’ by Traiberman Sharon (AER 2019)</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Debora Candela <a href="mailto:debora.candela@carloalberto.org" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0009-0003-9204-4085" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Turin
+          </p>
+        <p class="affiliation">
+            Collegio Carlo Alberto
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Collegio Carlo Alberto Replication Project
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This report was created as part of the assessment for the <a href="https://floswald.github.io/CompEcon/">Computational Economics Course</a> in the PhD program at Collegio Carlo Alberto taught by <a href="https://floswald.github.io/">Florian Oswald</a>.</p>
+</div>
+</div>
+<section id="paper-and-replication-package" class="level2">
+<h2 class="anchored" data-anchor-id="paper-and-replication-package">Paper and Replication Package</h2>
+<p>This report attempts a partial computational replication of:</p>
+<ul>
+<li><strong>Paper:</strong> <a href="https://doi.org/10.1257/aer.20161925">10.1257/aer.20161925</a></li>
+<li><strong>Replication package:</strong> <a href="https://doi.org/10.3886/E231387V1">10.3886/E231387V1</a></li>
+</ul>
+<p>by using the <strong>Julia</strong> computation language.</p>
+<p>Because the original Danish administrative data are strictly confidential, a direct numerical replication of the paper’s exhibits is impossible. Therefore, we have replicated the computational structure of the first-stage EM procedure on a synthetic data-generating process (DGP).</p>
+<p>The replication consists in the following computational results:</p>
+<ol type="1">
+<li><p><strong>Synthetic DGP:</strong> Simulating worker heterogeneity, wages, and occupational transitions.</p></li>
+<li><p><strong>First-Stage EM Algorithm:</strong> Recovering unobserved comparative advantage and income parameters.</p></li>
+<li><p><strong>Table 4-Style Exhibit:</strong> “Absolute Advantage Across Types” (Synthetic Analogue).</p></li>
+</ol>
+<p><strong><em>Caveats and Observations:</em></strong> The original author provided MATLAB code for the first-stage EM estimation (downloaded from <a href="https://www.dropbox.com/scl/fi/v2r6f1mqe4a1zwrsincpi/emCode.m?e=2&amp;r=ACpsCqP7XOdsbeEDg5SC4Vl7UU-eX6MmJUJB6BUQDZm1ICT0jpU9QFewhaZzuDBR9CaAs51EGKMo89wBSup7ZZX-N4pHCLO7OR_8-73sIlBy2EPkc93QPNfY7Pf_R52o5tDf24bZyC7Uac1Ff5RJLgWXLEbAwJL5woOkzJ6XDj_fZFGEFoamsnF3sf_M2_dLS-w&amp;sm=1&amp;dl=0">Dropbox</a>). Since the underlying dataset and the second-stage code were not available, this project focuses exclusively on translating and validating the first-stage EM algorithm in Julia. The resulting tables are computational proofs of concept, not empirical replications since, as said before, all codes are implemented based on a synthetic dataset made from scratch.</p>
+<hr>
+</section>
+<section id="high-level-description-of-computational-problem-in-paper" class="level2">
+<h2 class="anchored" data-anchor-id="high-level-description-of-computational-problem-in-paper">High Level Description of Computational Problem in Paper</h2>
+<p>The core computational problem in the replication process is estimating a structural model of occupational choice where workers possess an unobserved, time-invariant comparative advantage (latent type <span class="math inline">\(k\)</span>). Since the Danish administrative data used in the original paper is strictly confidential, this replication focuses on validating the first-stage Expectation-Maximization (EM) procedure using a synthetic Data Generating Process (DGP) designed to align wtih the paper’s theoretical framework.</p>
+<section id="the-theoretical-model-and-the-synthetic-dgp" class="level3">
+<h3 class="anchored" data-anchor-id="the-theoretical-model-and-the-synthetic-dgp">1. The Theoretical Model and the Synthetic DGP</h3>
+<p>The DGP initializes <span class="math inline">\(N\)</span> workers (defaulting to 1,000), assigning each a random starting age and a permanent latent type <span class="math inline">\(k \in \{1, 2\}\)</span> with probabilities slightly skewed to avoid perfect symmetry. Moreover, to rigorously test the EM algorithm, the synthetic DGP (<code>src/DGP.jl</code>) was constructed to satisfy the structural assumptions of the paper’s labor supply model:</p>
+<ul>
+<li><p><strong>Wage Equation and Unobserved Heterogeneity:</strong> Following Equation (6) and Assumption 3 of the paper, log wages depend on age, occupation-specific premiums, and the unobserved match quality between the worker’s latent type and their occupation. The DGP replicates this log-linear structure: <span class="math display">\[
+\log w_{itk} = \beta_0 + \beta_{age} \cdot \text{age}_{it} + \alpha_o + \gamma_{o, k} + \varepsilon_{it}
+\]</span> where <span class="math inline">\(\alpha_o\)</span> is an occupation-specific wage premium, <span class="math inline">\(\gamma_{o,k}\)</span> captures the type-specific comparative advantage and <span class="math inline">\(\varepsilon_{it} \sim \mathcal{N}(0, \sigma^2)\)</span>.</p></li>
+<li><p><strong>Occupational Transitions and Switching Costs (Random Utility Framework):</strong> The paper models workers’ occupational choices using a random utility framework. Assumption 2 specifies that the idiosyncratic switching cost shocks follow a GEV(1) distribution which yields conditional choice probabilities with Multinomial Logit form (Equation 8).</p>
+<p>To simulate this decision-making process without access to the confidential Danish data, the synthetic DGP explicitly constructs a transition utility <span class="math inline">\(u_{iodk}\)</span> for a worker of type <span class="math inline">\(k\)</span> of age <span class="math inline">\(a\)</span> moving from origin occupation <span class="math inline">\(o\)</span> to destination <span class="math inline">\(d\)</span>. This utility includes four distinct structural components that mirror the paper’s labor market frictions:</p>
+<p><span class="math display">\[
+u_{iodk} = \delta_d + c \cdot \mathbb{I}(d=o) + \tau_{d,k} - \rho \cdot \max(a - 35, 0) \cdot \mathbb{I}(d \neq o)
+\]</span></p>
+<p>Where the components represent:</p>
+<ol type="1">
+<li><p><em>Destination appeal</em> (<span class="math inline">\(\delta_d\)</span>): A baseline value (an intrinsic attractiveness) inherent to each occupation;</p></li>
+<li><p><em>Stay bonus</em> (<span class="math inline">\(c \cdot \mathbb{I}(d=o)\)</span>): Instead of subtracting a switching cost, the code adds a utility bonus if the worker remains in the same occupation (<code>dest == current_occ</code>), equivalent to labor market frictions;</p></li>
+<li><p><em>Type-match premium</em> (<span class="math inline">\(\tau_{d,k}\)</span>): A utility premium assigned if the worker’s “latent type” (unobserved skills or comparative advantage) aligns well with that specific occupation;</p></li>
+<li><p><em>Age penalty</em> (<span class="math inline">\(- \rho \cdot \max(a - 35, 0) \cdot \mathbb{I}(d \neq o)\)</span>): A utility penalty applied to older workers (e.g., above 35 years of age) who decide to switch careers, reflecting the fact that changing occupations becomes increasingly costly with age.</p></li>
+</ol>
+<p>To mathematically map these simulated utilities into bounded transition probabilities, the DGP employs a Softmax formulation, which is the precise algorithmic equivalent of the econometric Multinomial Logit model:</p>
+<p><span class="math display">\[
+P(o_{i,t+1} = d) = \frac{\exp(u_{iodk})}{\sum_{j=1}^{O} \exp(u_{iojk})}
+\]</span></p>
+<p>Furthermore, to guarantee numerical stability and prevent overflow (<code>Inf</code> or <code>NaN</code> errors) during exponentiation, the maximum utility value is systematically subtracted from all options prior to the Softmax transformation and the next occupation is then drawn from a Categorical distribution based on these stabilized probabilities.</p></li>
+</ul>
+</section>
+<section id="the-first-stage-em-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="the-first-stage-em-algorithm">2. The First-Stage EM Algorithm</h3>
+<p>In the structural model, workers select into occupations based on their observable characteristics and an unobserved, time-invariant comparative advantage (latent type <span class="math inline">\(k\)</span>). The first-stage estimation recovers the population distribution over these types, the occupational transition matrices conditional on unobservables, and the parameters of the wage equation.</p>
+<p>Because worker types are inherently latent, a simple Ordinary Least Squares (OLS) regression cannot be applied. Instead, the model is estimated using a pseudo-EM procedure (following <a href="https://doi.org/10.3982/ECTA7743Digital">Arcidiacono and Miller, 2011</a>) that treats these unobserved types as weights, continuously alternating between an Expectation (E) step and a Maximization (M) step until convergence.</p>
+<section id="step-1-the-theoretical-likelihood-function" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-the-theoretical-likelihood-function">Step 1: The Theoretical Likelihood Function</h4>
+<p>Following Section III.A of Traiberman (2019), conditional on type <span class="math inline">\(k\)</span>, the likelihood contribution of worker <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span> decomposes into a Gaussian wage density and an occupational transition probability: <span class="math display">\[
+L_{it|k} = f(\log w_{it} \mid o_{it}, \omega_{it}, t, k) \cdot \pi(o_{it}, \omega_{it} \mid o_{it-1}, \omega_{it-1}, t, k)
+\]</span> where:</p>
+<ul>
+<li><em><span class="math inline">\(f(\cdot)\)</span></em> represents the conditional probability density function of the worker’s log wage which is specified as a Gaussian density, parameterized by occupation-specific wage coefficients and residual variances, by following the model’s assumptions;</li>
+<li><em><span class="math inline">\(\pi(\cdot)\)</span></em> represents the conditional occupational transition probability. Derived from the assumption of GEV(1) switching cost shocks (Assumption 2), this takes the mathematical form of a Multinomial Logit model, capturing the likelihood of moving from a previous occupation <span class="math inline">\(o_{it-1}\)</span> to the current one <span class="math inline">\(o_{it}\)</span> given the state variables <span class="math inline">\(\omega\)</span>.</li>
+</ul>
+<p>Since type <span class="math inline">\(k\)</span> is unobserved, the overall sample structural log-likelihood aggregates over all individuals by taking a weighted sum across all possible latent types: <span class="math display">\[
+\mathcal{L}^{1st} = \sum_i \log \left( \sum_k q_k \prod_{t=1}^T \pi_{it|k} \cdot f_{it|k} \right)
+\]</span> where <span class="math inline">\(q_k\)</span> represents the baseline population probability of belonging to type <span class="math inline">\(k\)</span>.</p>
+</section>
+<section id="step-2-the-iterative-em-loop" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-the-iterative-em-loop">Step 2: The Iterative EM Loop</h4>
+<p>To replicate this procedure computationally, the script <code>src/FirstStage.jl</code> initializes with an asymmetric guess for the type probabilities (<span class="math inline">\(q_1\)</span>) and alternates between two core phases.</p>
+<p><strong>A) The Maximization Step (M-Step)</strong> In this phase, the current posterior type probabilities (<code>PI_TYPE</code>) are treated as given weights to estimate the structural parameters via Weighted Least Squares (WLS):</p>
+<ul>
+<li><strong>Transitions:</strong> For every occupation-year cell, transition probabilities <span class="math inline">\(\hat{\pi}\)</span> are estimated via a weighted Linear Probability Model (LPM).</li>
+<li><strong>Wage Equation:</strong> The theoretical framework dictates that wages depend on time-varying aggregate skill prices (<span class="math inline">\(w_{ot}\)</span>). To isolate the permanent structural effects of comparative advantage, the code groups observations into specific occupation-year cells (<code>G = gCodeB + nOccs*(year-1)</code>) and demeans both income and covariates within these cells. After demeaning, occupation-specific Mincerian wage regressions are run using WLS to recover the wage coefficients (<span class="math inline">\(\beta\)</span>) and residual variances (<span class="math inline">\(\sigma^2\)</span>).</li>
+</ul>
+<p><strong>B) The Expectation Step (E-Step)</strong> With the newly updated parameters, the algorithm evaluates the full history of each worker to update their latent type probability using Bayes’ rule. The log-likelihood of worker <span class="math inline">\(i\)</span>’s history under type <span class="math inline">\(k\)</span> is the sum of the transition and wage log-likelihoods over all periods: <span class="math display">\[L_{ik} = \sum_t (\log \hat{\pi}_{it|k} + \log f_{it|k}).\]</span> The posterior probability is then updated as: <span class="math display">\[
+q_{i1} = \frac{\pi_1 \exp(L_{i1})}{\pi_1 \exp(L_{i1}) + \pi_2 \exp(L_{i2})}.
+\]</span></p>
+<p>During the translation process of the code onto julia, some specific programming adjustments have been implemented:</p>
+<ul>
+<li><strong>Data Structure Adaptation (Cell Arrays to Native Julia):</strong> The original MATLAB codebase relied heavily on Cell Arrays to group observations by occupation and year. To replicate this efficiently, native arrays (<code>XPI</code>, <code>dex</code>) and one-hot encoding matrices (<code>YPI</code>) are pre-allocated, allowing the EM algorithm to slice global matrices instantly without expensive data-filtering operations during the iterative loop.</li>
+<li><strong>Missing Initial Conditions and Symmetry Trap Avoidance:</strong> In the author’s original MATLAB implementation, the initial type probabilities (<code>q0</code>) were supplied as an external input, presumably estimated from the confidential data in an unavailable pre-processing step. Lacking these initial conditions, I had to initialize the probabilities from scratch. However, naively setting the prior probability of being type 1 to exactly <span class="math inline">\(0.5\)</span> for all workers is mathematically fatal in finite mixture models: it creates perfect symmetry between the two types, causing the likelihood gradients to be exactly zero and forcing the EM algorithm to erroneously declare convergence at iteration 1. To break this symmetry and allow the algorithm to effectively separate the latent types, I introduced a random “jittering” technique, drawing the initial probabilities from a uniform distribution <span class="math inline">\(U(0.4, 0.6)\)</span>.</li>
+<li><strong>Numerical Stability (WLS and Log-Transforms):</strong> Synthetic datasets can randomly generate small or empty occupation-year cells, leading to singular matrices (<span class="math inline">\(X'WX\)</span>) during WLS estimation. Standard matrix inversion was replaced with the Moore-Penrose pseudo-inverse (<code>pinv</code> from Julia’s <code>LinearAlgebra</code>) to prevent <code>SingularException</code> crashes. Furthermore, probabilities were bounded away from zero (<code>clamp</code> in Julia) before log-transformations to prevent mathematically undefined states (<code>-Inf</code>).</li>
+<li><strong>Algebraic Stabilization in Bayes’ Rule:</strong> A naive computation of the Bayesian update can easily lead to floating-point overflow (<code>Inf</code> errors) due to the exponentiation of large likelihood values. To preserve numerical integrity, the formula is algebraically transformed by dividing both the numerator and denominator by <span class="math inline">\(\exp(L_{i1})\)</span>: <span class="math display">\[q_{i1} = \frac{\pi_1}{\pi_1 + \pi_2 \exp(L_{i2} - L_{i1})}\]</span> This adjustment (<code>exp.(L[:, 2] .- L[:, 1])</code> in the script) keeps the computations strictly bounded within standard 64-bit architecture limits while remaining mathematically identical to the theoretical update. —</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="computational-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="computational-requirements">Computational Requirements</h2>
+<p>Here are the original package’s computational requirements:</p>
+<ul>
+<li><strong>Software Requirements:</strong>
+<ul>
+<li>Stata (version not specified, used for data preparation later results not implemented in this replication exercise).</li>
+<li>MATLAB (version not explicitly specified for the provided EM script).</li>
+</ul></li>
+<li><strong>Time Requirements:</strong>
+<ul>
+<li>Not specified by the author for the full structural estimation.</li>
+</ul></li>
+<li><strong>Hardware Requirements:</strong>
+<ul>
+<li>Not explicitly specified, though the original administrative dataset contains 18.2 million worker-year observations, implying a requirement for substantial RAM for the full empirical run.</li>
+</ul></li>
+</ul>
+</section>
+<section id="my-computational-setup" class="level2">
+<h2 class="anchored" data-anchor-id="my-computational-setup">My Computational setup</h2>
+<ul>
+<li><strong>Machine:</strong> Windows Laptop (HP Spectre x360 Convertible), Windows 11 Home, 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 GB RAM, 64-bit operating system.</li>
+<li><strong>Environment:</strong> WSL (Ubuntu 24.04.3 LTS) running on Windows.</li>
+<li><strong>Core Software:</strong>
+<ul>
+<li>Julia version 1.12.4</li>
+<li>Quarto version 1.9.37 (for report generation)</li>
+</ul></li>
+<li><strong>Julia Dependencies (Packages used):</strong>
+<ul>
+<li><code>DataFrames.jl</code> (for tabular data manipulation)</li>
+<li><code>Distributions.jl</code> (for defining and sampling probability distributions in the DGP)</li>
+<li><code>Random</code> (standard library, for reproducible random number generation)</li>
+<li><code>Statistics</code> (standard library, for core statistical functions)</li>
+</ul></li>
+<li><strong>Time Requirements (Synthetic Pipeline):</strong>
+<ul>
+<li>Generating the synthetic data and running the first-stage EM algorithm for <span class="math inline">\(44\)</span> iterations to convergence takes approximately <strong><span class="math inline">\(2.5\)</span> seconds</strong> on the specified machine (post-compilation).</li>
+</ul></li>
+<li><strong>Hardware Requirements:</strong>
+<ul>
+<li>Given that the sythetic dataset contains <span class="math inline">\(12000\)</span> worker-year observations, there is no abnormal requirement for RAM for the empirical run.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="replication" class="level2">
+<h2 class="anchored" data-anchor-id="replication">Replication</h2>
+<p>The computational replication was successfully executed in Julia, achieving the three main milestones of this project:</p>
+<ul>
+<li><em>Synthetic DGP:</em> Full generation of <span class="math inline">\(12,000\)</span> worker-year observations successfully implemented in Julia.</li>
+<li><em>First-Stage EM Algorithm:</em> The algorithm correctly processes the synthetic data and converges stably after 44 iterations.</li>
+<li><em>Table 4 (Absolute Advantage Across Types):</em> The original paper’s Table 4 reports absolute advantage across six types using administrative data. Below is the synthetic two-type analogue generated by our Julia translation of the EM algorithm.</li>
+</ul>
+<section id="execution-and-output-structure" class="level3">
+<h3 class="anchored" data-anchor-id="execution-and-output-structure">Execution and Output Structure</h3>
+<p>Running the baseline specification via the project’s custom package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TraibermanReplication</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> TraibermanReplication.<span class="fu">run</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>produces a structured output <code>(:q1, :beta, :sigma, :data)</code> containing the core structural estimates of the model:</p>
+<ul>
+<li><code>q1</code> contains posterior probabilities of being latent type 1;</li>
+<li><code>beta</code> contains occupation-specific wage regression coefficients;</li>
+<li><code>sigma</code> contains residual wage variances by occupation;</li>
+<li><code>data</code> contains the synthetic panel used in the estimation.</li>
+</ul>
+<p>In our baseline run, the Julia implementation proved numerically stable. The EM algorithm converged strictly after 44 iterations, estimating a population share of type-1 workers at approximately <span class="math inline">\(0.474\)</span>.</p>
+</section>
+<section id="table-4" class="level3">
+<h3 class="anchored" data-anchor-id="table-4">Table 4</h3>
+<p>Table 4 in Traiberman (2019) reports absolute advantage across six latent types using confidential administrative data. However, as detailed in Section IV.A of the paper, these six types are structurally composed of <em>two latent types</em> estimated within each of three distinct skill groups (High School, Vocational, and College+). Below is the original Table 4 from the paper:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Table4.png" class="img-fluid figure-img"></p>
+<figcaption>Original Table 4: Absolute Advantage Across Types (Traiberman, 2019)</figcaption>
+</figure>
+</div>
+<p>The author’s provided MATLAB routine for the first-stage EM algorithm explicitly hardcodes <code>nTypes = 2</code>. This strongly implies that the full empirical strategy involved partitioning the dataset by education level and running this exact EM estimator independently on each subsample. Lacking the confidential administrative data and the complete data-partitioning pipeline, the project focuses on validating this foundational two-type estimation engine. Consequently, we report a computational two-type analogue below, generated directly from our synthetic panel.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Table4 <span class="op">=</span> TraibermanReplication.<span class="fu">run</span>(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2" class="cell" data-message="false" data-cache="true" data-execution_count="1">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Classification</th>
+<th style="text-align: center;">Mean theta</th>
+<th style="text-align: center;">Mean income (relative)</th>
+<th style="text-align: center;">corr(CA, wage)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Synthetic L</td>
+<td style="text-align: center;">0.474</td>
+<td style="text-align: center;">0.909</td>
+<td style="text-align: center;">-0.989</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Synthetic H</td>
+<td style="text-align: center;">0.526</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.989</td>
+</tr>
+</tbody>
+</table>
+<div><div style="float: left;"><span>2×5 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame caption-top table table-sm table-striped small">
+<thead>
+<tr class="columnLabelRow header">
+<th class="stubheadLabel" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Classification</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Mean_theta</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Mean_income_relative</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">corr_CA_wage</th>
+</tr>
+<tr class="columnLabelRow even">
+<th class="stubheadLabel" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Int64">Int64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="String">String</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="dataRow odd">
+<td class="rowLabel" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Synthetic L</td>
+<td style="text-align: right;">0.473958</td>
+<td style="text-align: right;">0.90896</td>
+<td style="text-align: right;">-0.989262</td>
+</tr>
+<tr class="dataRow even">
+<td class="rowLabel" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Synthetic H</td>
+<td style="text-align: right;">0.526042</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">0.989262</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This table should be interpreted as a computational exhibit, not as a numerical replication of the original Table 4. It shows that the Julia implementation can generate posterior type probabilities, type-level income summaries, and a comparative-advantage-style statistic from the first-stage output.</p>
+</section>
+<section id="unit-testing-and-code-verification" class="level3">
+<h3 class="anchored" data-anchor-id="unit-testing-and-code-verification">Unit Testing and Code Verification</h3>
+<p>To ensure the computational robustness of the replication package, a suite of unit tests is included in the <code>test/runtests.jl</code> file so to assert the integrity of the Data Generating Process and the EM estimator.</p>
+<p>The test suite executes the full pipeline using a reduced parameter set and evaluates the following components:</p>
+<ul>
+<li><strong>DGP Structural Integrity:</strong> It verifies that the pre-allocated covariates (<code>XINC</code>) and dynamic indexing arrays (<code>dex</code>) match the expected dimensions. Crucially, it asserts that the one-hot encoding matrices (<code>YPI</code>) correctly sum to 1 across rows, ensuring that occupational transitions are mathematically valid probability distributions.</li>
+<li><strong>Estimator Mathematical Constraints:</strong> It ensures that the Expectation-Maximization algorithm produces theoretically sound estimates. The tests verify that all posterior latent type probabilities (<code>q1</code>) are strictly bounded between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, that all occupation-specific variance estimates (<code>sigma</code>) are strictly positive, and that all wage coefficients (<code>beta</code>) evaluate to finite numbers (preventing hidden <code>NaN</code> or <code>Inf</code> propagation during matrix inversions).</li>
+<li><strong>Exhibit Generation:</strong> It confirms that the post-processing functions correctly ingest the raw EM output and aggregate it into the expected <span class="math inline">\(2 \times 5\)</span> dimension required for the Table 4 analogue, maintaining finite bounds for the calculation of the comparative advantage statistics.</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
