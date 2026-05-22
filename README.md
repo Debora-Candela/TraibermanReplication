@@ -26,21 +26,22 @@ To download the repository and start Julia, run the following commands in your s
 
 ```bash
 git clone https://github.com/Debora-Candela/TraibermanReplication.git
-cd TraibermanReplication/src/TraibermanReplication.jl
+cd TraibermanReplication
 julia 
 ```
-Then, to replicate easily the outputs or test the environment, run the following commands in the Julia REPL:
+Then, to replicate easily the outputs or test the environment, run the following commands in the Julia REPL in the package environment (pkg>) using `]`:
 
-```Plaintext
-] activate .
+```julia
+activate .
+instantiate
 ```
 Press backspace to return to the standard Julia prompt (julia>), then load the package:
 
 ```julia
 using TraibermanReplication
 
-TraibermanReplication.run()       # To replicate the pipeline and generate Table 4
-TraibermanReplication.run_tests() # To run the structural test suite
+TraibermanReplication.run()
+TraibermanReplication.run_tests()
 ```
 
 ## Compile the Technical Report
