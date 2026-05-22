@@ -47,7 +47,7 @@ The replication consists in the following computational results:
 
 3.  **Table 4-Style Exhibit:** "Absolute Advantage Across Types" (Synthetic Analogue).
 
-***Caveats and Observations:*** The original author provided MATLAB code for the first-stage EM estimation (downloaded from [Dropbox](https://www.dropbox.com/scl/fi/v2r6f1mqe4a1zwrsincpi/emCode.m?e=2&r=ACpsCqP7XOdsbeEDg5SC4Vl7UU-eX6MmJUJB6BUQDZm1ICT0jpU9QFewhaZzuDBR9CaAs51EGKMo89wBSup7ZZX-N4pHCLO7OR_8-73sIlBy2EPkc93QPNfY7Pf_R52o5tDf24bZyC7Uac1Ff5RJLgWXLEbAwJL5woOkzJ6XDj_fZFGEFoamsnF3sf_M2_dLS-w&sm=1&dl=0)). Since the underlying dataset and the second-stage code were not available, this project focuses exclusively on translating and validating the first-stage EM algorithm in Julia. The resulting tables are computational proofs of concept, not empirical replications since, as said before, all codes are implemented based on a synthetic dataset made from scratch.
+***Caveats and Observations:*** The original author provided MATLAB code for the first-stage EM estimation. Since the underlying dataset and the second-stage code were not available, this project focuses exclusively on translating and validating the first-stage EM algorithm in Julia. The resulting tables are computational proofs of concept, not empirical replications since, as said before, all codes are implemented based on a synthetic dataset made from scratch.
 
 ---
 
