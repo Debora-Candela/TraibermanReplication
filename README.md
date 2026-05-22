@@ -1,8 +1,5 @@
 # Traiberman (2019) Replication Project
 
-[![Build Status](https://github.com/Debora/TraibermanReplication.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/Debora/TraibermanReplication.jl/actions/workflows/CI.yml?query=branch%3Amain)
-
-
 ## Project Description
 This repository contains a partial computational replication of the structural labor model presented in Traiberman (2019). Because the original Danish administrative data are strictly confidential, this project translates the core Expectation-Maximization (EM) first-stage algorithm into **Julia** and validates its numerical stability and convergence using a synthetic Data Generating Process (DGP) build exactly to match all the First Stage code requirements
 
