@@ -8,6 +8,18 @@ author:
     affiliations:
       - name: "University of Turin"
       - name: "Collegio Carlo Alberto"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-title: "In this page"
+    toc-depth: 3
+    number-sections: false
+    theme: cosmo
+execute:
+  echo: true
+  warning: false
+  message: false
 ---
 
 ::: {.callout-note}
@@ -25,7 +37,7 @@ This report attempts a partial computational replication of:
 
 by using the **Julia** computation language.
 
-Because the original Danish administrative data are strictly confidential, a direct numerical replication of the paper's exhibits is impossible. Therefore, we have replicated the computational structure of the first-stage EM procedure on a synthetic data-generating process (DGP).
+Because the original Danish administrative data are strictly confidential, a direct numerical replication of the paper's exhibits is impossible. Therefore, I have replicated the computational structure of the first-stage EM procedure on a synthetic data-generating process (DGP).
 
 The replication consists in the following computational results:
 
@@ -42,11 +54,11 @@ The replication consists in the following computational results:
 ## High Level Description of Computational Problem in Paper
 
 The core computational problem in the replication process is estimating a structural model of occupational choice where workers possess an unobserved, time-invariant comparative advantage (latent type $k$). 
-Since the Danish administrative data used in the original paper is strictly confidential, this replication focuses on validating the first-stage Expectation-Maximization (EM) procedure using a synthetic Data Generating Process (DGP) designed to align wtih the paper's theoretical framework.
+Since the Danish administrative data used in the original paper is confidential, this replication focuses on validating the first-stage Expectation-Maximization (EM) procedure using a synthetic Data Generating Process (DGP) designed to align wtih the paper's theoretical framework.
 
 ### 1. The Theoretical Model and the Synthetic DGP
 The DGP initializes $N$ workers (defaulting to 1,000), assigning each a random starting age and a permanent latent type $k \in \{1, 2\}$ with probabilities slightly skewed to avoid perfect symmetry. 
-Moreover, to rigorously test the EM algorithm, the synthetic DGP (`src/DGP.jl`) was constructed to satisfy the structural assumptions of the paper's labor supply model:
+Moreover, to rigorously test the EM algorithm, the synthetic DGP was constructed to satisfy the structural assumptions of the paper's labor supply model:
 
 * **Wage Equation and Unobserved Heterogeneity:** Following Equation (6) and Assumption 3 of the paper, log wages depend on age, occupation-specific premiums, and the unobserved match quality between the worker's latent type and their occupation. The DGP replicates this log-linear structure:
   $$
@@ -54,7 +66,7 @@ Moreover, to rigorously test the EM algorithm, the synthetic DGP (`src/DGP.jl`) 
   $$
     where $\alpha_o$ is an occupation-specific wage premium, $\gamma_{o,k}$ captures the type-specific comparative advantage and $\varepsilon_{it} \sim \mathcal{N}(0, \sigma^2)$.
 
-* **Occupational Transitions and Switching Costs (Random Utility Framework):** The paper models workers' occupational choices using a random utility framework. Assumption 2 specifies that the idiosyncratic switching cost shocks follow a GEV(1) distribution which yields conditional choice probabilities with Multinomial Logit form (Equation 8). 
+* **Occupational Transitions and Switching Costs (Random Utility Framework):** The paper models workers' occupational choices using a random utility framework. Assumption 2 specifies that the idiosyncratic switching cost shocks follow a GEV(1) distribution which yields conditional choice probabilities with Multinomial Logit form (Equation 8 of the paper). 
   
   To simulate this decision-making process without access to the confidential Danish data, the synthetic DGP explicitly constructs a transition utility $u_{iodk}$ for a worker of type $k$ of age $a$ moving from origin occupation $o$ to destination $d$. This utility includes four distinct structural components that mirror the paper's labor market frictions:
   
@@ -70,15 +82,15 @@ Moreover, to rigorously test the EM algorithm, the synthetic DGP (`src/DGP.jl`) 
   
   3. *Type-match premium* ($\tau_{d,k}$): A utility premium assigned if the worker's "latent type" (unobserved skills or comparative advantage) aligns well with that specific occupation;
   
-  4. *Age penalty* ($- \rho \cdot \max(a - 35, 0) \cdot \mathbb{I}(d \neq o)$): A utility penalty applied to older workers (e.g., above 35 years of age) who decide to switch careers, reflecting the fact that changing occupations becomes increasingly costly with age.
+  4. *Age penalty* ($- \rho \cdot \max(a - 35, 0) \cdot \mathbb{I}(d \neq o)$): A utility penalty applied to older workers (e.g., above 35 years of age) who decide to switch careers.
 
-  To mathematically map these simulated utilities into bounded transition probabilities, the DGP employs a Softmax formulation, which is the precise algorithmic equivalent of the econometric Multinomial Logit model:
-  
+  To map these simulated utilities into bounded transition probabilities, the DGP employs the following formulation:
+
   $$
   P(o_{i,t+1} = d) = \frac{\exp(u_{iodk})}{\sum_{j=1}^{O} \exp(u_{iojk})}
   $$
   
-  Furthermore, to guarantee numerical stability and prevent overflow (`Inf` or `NaN` errors) during exponentiation, the maximum utility value is systematically subtracted from all options prior to the Softmax transformation and the next occupation is then drawn from a Categorical distribution based on these stabilized probabilities.
+ Moreover, to guarantee numerical stability during exponentiation, the maximum utility value is systematically subtracted from all options prior to the transformation and the next occupation is then drawn from a Categorical distribution based on these probabilities.
 
 ### 2. The First-Stage EM Algorithm
 
@@ -87,14 +99,14 @@ In the structural model, workers select into occupations based on their observab
 Because worker types are inherently latent, a simple Ordinary Least Squares (OLS) regression cannot be applied. Instead, the model is estimated using a pseudo-EM procedure (following [Arcidiacono and Miller, 2011](https://doi.org/10.3982/ECTA7743Digital)) that treats these unobserved types as weights, continuously alternating between an Expectation (E) step and a Maximization (M) step until convergence.
 
 #### Step 1: The Theoretical Likelihood Function
-Following Section III.A of Traiberman (2019), conditional on type $k$, the likelihood contribution of worker $i$ at time $t$ decomposes into a Gaussian wage density and an occupational transition probability:
+Following Traiberman (2019), conditional on type $k$, the likelihood contribution of worker $i$ at time $t$ decomposes into a Gaussian wage density and an occupational transition probability:
 $$
 L_{it|k} = f(\log w_{it} \mid o_{it}, \omega_{it}, t, k) \cdot \pi(o_{it}, \omega_{it} \mid o_{it-1}, \omega_{it-1}, t, k)
 $$
 where:
 
-* *$f(\cdot)$* represents the conditional probability density function of the worker's log wage which is specified as a Gaussian density, parameterized by occupation-specific wage coefficients and residual variances, by following the model's assumptions;
-* *$\pi(\cdot)$* represents the conditional occupational transition probability. Derived from the assumption of GEV(1) switching cost shocks (Assumption 2), this takes the mathematical form of a Multinomial Logit model, capturing the likelihood of moving from a previous occupation $o_{it-1}$ to the current one $o_{it}$ given the state variables $\omega$.
+* *$f(\cdot)$* represents the conditional probability density function of the worker's log wage is specified as a Gaussian density;
+* *$\pi(\cdot)$* represents the conditional occupational transition probability.
 
 Since type $k$ is unobserved, the overall sample structural log-likelihood aggregates over all individuals by taking a weighted sum across all possible latent types:
 $$
@@ -103,29 +115,28 @@ $$
 where $q_k$ represents the baseline population probability of belonging to type $k$.
 
 #### Step 2: The Iterative EM Loop
-To replicate this procedure computationally, the script `src/FirstStage.jl` initializes with an asymmetric guess for the type probabilities ($q_1$) and alternates between two core phases.
+To replicate this procedure computationally, the script initializes with an asymmetric guess for the type probabilities ($q_1$) and alternates between two core phases.
 
 **A) The Maximization Step (M-Step)**
-In this phase, the current posterior type probabilities (`PI_TYPE`) are treated as given weights to estimate the structural parameters via Weighted Least Squares (WLS):
+In this phase, the current posterior type probabilities are treated as given weights to estimate the structural parameters via Weighted Least Squares (WLS):
 
 * **Transitions:** For every occupation-year cell, transition probabilities $\hat{\pi}$ are estimated via a weighted Linear Probability Model (LPM).
-* **Wage Equation:** The theoretical framework dictates that wages depend on time-varying aggregate skill prices ($w_{ot}$). To isolate the permanent structural effects of comparative advantage, the code groups observations into specific occupation-year cells (`G = gCodeB + nOccs*(year-1)`) and demeans both income and covariates within these cells. After demeaning, occupation-specific Mincerian wage regressions are run using WLS to recover the wage coefficients ($\beta$) and residual variances ($\sigma^2$).
+* **Wage Equation:** The theoretical framework dictates that wages depend on time-varying aggregate skill prices ($w_{ot}$).
 
 **B) The Expectation Step (E-Step)**
 With the newly updated parameters, the algorithm evaluates the full history of each worker to update their latent type probability using Bayes' rule. The log-likelihood of worker $i$'s history under type $k$ is the sum of the transition and wage log-likelihoods over all periods: $$L_{ik} = \sum_t (\log \hat{\pi}_{it|k} + \log f_{it|k}).$$ 
-The posterior probability is then updated as:
+so that the posterior probability is then updated as:
 $$
 q_{i1} = \frac{\pi_1 \exp(L_{i1})}{\pi_1 \exp(L_{i1}) + \pi_2 \exp(L_{i2})}.
 $$
 
 During the translation process of the code onto julia, some specific programming adjustments have been implemented:
 
-* **Data Structure Adaptation (Cell Arrays to Native Julia):** The original MATLAB codebase relied heavily on Cell Arrays to group observations by occupation and year. To replicate this efficiently, native arrays (`XPI`, `dex`) and one-hot encoding matrices (`YPI`) are pre-allocated, allowing the EM algorithm to slice global matrices instantly without expensive data-filtering operations during the iterative loop.
-* **Missing Initial Conditions and Symmetry Trap Avoidance:** In the author's original MATLAB implementation, the initial type probabilities (`q0`) were supplied as an external input, presumably estimated from the confidential data in an unavailable pre-processing step. Lacking these initial conditions, I had to initialize the probabilities from scratch. However, naively setting the prior probability of being type 1 to exactly $0.5$ for all workers is mathematically fatal in finite mixture models: it creates perfect symmetry between the two types, causing the likelihood gradients to be exactly zero and forcing the EM algorithm to erroneously declare convergence at iteration 1. To break this symmetry and allow the algorithm to effectively separate the latent types, I introduced a random "jittering" technique, drawing the initial probabilities from a uniform distribution $U(0.4, 0.6)$.
-* **Numerical Stability (WLS and Log-Transforms):** Synthetic datasets can randomly generate small or empty occupation-year cells, leading to singular matrices ($X'WX$) during WLS estimation. Standard matrix inversion was replaced with the Moore-Penrose pseudo-inverse (`pinv` from Julia's `LinearAlgebra`) to prevent `SingularException` crashes. Furthermore, probabilities were bounded away from zero (`clamp` in Julia) before log-transformations to prevent mathematically undefined states (`-Inf`).
-* **Algebraic Stabilization in Bayes' Rule:** A naive computation of the Bayesian update can easily lead to floating-point overflow (`Inf` errors) due to the exponentiation of large likelihood values. To preserve numerical integrity, the formula is algebraically transformed by dividing both the numerator and denominator by $\exp(L_{i1})$:
+* **Data Structure Adaptation (Cell Arrays to Native Julia):** The original MATLAB codebase relied heavily on Cell Arrays to group observations by occupation and year. To replicate it, native arrays and one-hot encoding matrices are pre-allocated so that the EM algorithm works more efficiently during the iterative loop;
+* **Missing Initial Conditions and Symmetry Trap Avoidance:** In the author's original MATLAB implementation, the initial type probabilities were supplied as an external input. Lacking these initial conditions, I had to initialize the probabilities from scratch. However, setting the prior probability of being type 1 to exactly $0.5$ for all workers creates perfect symmetry between the two types, causing the likelihood gradients to be exactly zero and forcing the EM algorithm to erroneously declare convergence at iteration 1. So, to break this symmetry and allow the algorithm to effectively separate the latent types, I draw the initial probabilities from a uniform distribution $U(0.4, 0.6)$.
+* **Numerical Stability (WLS and Log-Transforms):** Synthetic datasets can randomly generate small or empty occupation-year cells, leading to singular matrices ($X'WX$) during WLS estimation. Standard matrix inversion was replaced with the Moore-Penrose pseudo-inverse to prevent singularity crashes;
+* **Algebraic Stabilization in Bayes' Rule:** To preserve numerical integrity, the formula of the Bayesian update is transformed by dividing both the numerator and denominator by $\exp(L_{i1})$:
     $$q_{i1} = \frac{\pi_1}{\pi_1 + \pi_2 \exp(L_{i2} - L_{i1})}$$
-    This adjustment (`exp.(L[:, 2] .- L[:, 1])` in the script) keeps the computations strictly bounded within standard 64-bit architecture limits while remaining mathematically identical to the theoretical update.
 ---
 
 ## Computational Requirements
@@ -165,19 +176,11 @@ The computational replication was successfully executed in Julia, achieving the 
 
 * *Synthetic DGP:* Full generation of $12,000$ worker-year observations successfully implemented in Julia.
 * *First-Stage EM Algorithm:* The algorithm correctly processes the synthetic data and converges stably after 44 iterations.
-* *Table 4 (Absolute Advantage Across Types):* The original paper's Table 4 reports absolute advantage across six types using administrative data. Below is the synthetic two-type analogue generated by our Julia translation of the EM algorithm.
+* *Table 4 (Absolute Advantage Across Types):* The original paper's Table 4 reports absolute advantage across six types using administrative data while below is the synthetic two-type analogue generated by my Julia translation of the EM algorithm.
 
 
 ### Execution and Output Structure
-Running the baseline specification via the project's custom package:
-
-```julia
-using TraibermanReplication
-
-results = TraibermanReplication.run()
-```
-
-produces a structured output `(:q1, :beta, :sigma, :data)` containing the core structural estimates of the model:
+The baseline specification of the project's custom package produces a structured output `(:q1, :beta, :sigma, :data)` containing the core structural estimates of the model:
 
 - `q1` contains posterior probabilities of being latent type 1;
 - `beta` contains occupation-specific wage regression coefficients;
@@ -196,23 +199,20 @@ Below is the original Table 4 from the paper:
 
 The author's provided MATLAB routine for the first-stage EM algorithm explicitly hardcodes `nTypes = 2`. This strongly implies that the full empirical strategy involved partitioning the dataset by education level and running this exact EM estimator independently on each subsample. Lacking the confidential administrative data and the complete data-partitioning pipeline, the project focuses on validating this foundational two-type estimation engine. Consequently, we report a computational two-type analogue below, generated directly from our synthetic panel.
 
-```julia
-Table4 = TraibermanReplication.run(results)
-```
 
 | Type | Classification | Mean theta | Mean income (relative) | corr(CA, wage) |
 | :---: | :---: | :---: | :---: | :---: |
 | 1 | Synthetic L | 0.474 | 0.909 | -0.989 |
 | 2 | Synthetic H | 0.526 | 1.0 | 0.989 |
 
-This table should be interpreted as a computational exhibit, not as a numerical replication of the original Table 4. It shows that the Julia implementation can generate posterior type probabilities, type-level income summaries, and a comparative-advantage-style statistic from the first-stage output.
+This table should be interpreted as a computational exhibit, not as a numerical replication of the original Table 4 and it shows that the Julia implementation can generate posterior type probabilities, type-level income summaries, and a comparative-advantage-style statistic from the first-stage output.
 
 ### Unit Testing and Code Verification
 
-To ensure the computational robustness of the replication package, a suite of unit tests is included in the `test/runtests.jl` file so to assert the integrity of the Data Generating Process and the EM estimator.
+To ensure the computational robustness of the replication package, a suite of unit tests is included in a test file in the replication package so to assert the integrity of the Data Generating Process and the EM estimator.
 
 The test suite executes the full pipeline using a reduced parameter set and evaluates the following components:
 
-* **DGP Structural Integrity:** It verifies that the pre-allocated covariates (`XINC`) and dynamic indexing arrays (`dex`) match the expected dimensions. Crucially, it asserts that the one-hot encoding matrices (`YPI`) correctly sum to 1 across rows, ensuring that occupational transitions are mathematically valid probability distributions.
-* **Estimator Mathematical Constraints:** It ensures that the Expectation-Maximization algorithm produces theoretically sound estimates. The tests verify that all posterior latent type probabilities (`q1`) are strictly bounded between $0$ and $1$, that all occupation-specific variance estimates (`sigma`) are strictly positive, and that all wage coefficients (`beta`) evaluate to finite numbers (preventing hidden `NaN` or `Inf` propagation during matrix inversions).
-* **Exhibit Generation:** It confirms that the post-processing functions correctly ingest the raw EM output and aggregate it into the expected $2 \times 5$ dimension required for the Table 4 analogue, maintaining finite bounds for the calculation of the comparative advantage statistics. 
+* **DGP Structural Integrity:** It verifies that the pre-allocated covariates and dynamic indexing arrays match the expected dimensions; it checks that the one-hot encoding matrices correctly sum to 1 across rows, ensuring that occupational transitions are mathematically valid probability distributions;
+* **Estimator Mathematical Constraints:** It ensures that the Expectation-Maximization algorithm produces estimates that make logical sense; The tests verify that all posterior latent type probabilities are bounded between $0$ and $1$, that all occupation-specific variance estimates are strictly positive and that all wage coefficients evaluate to finite numbers;
+* **Exhibit Generation:** It confirms that the post-processing functions correctly ingest the raw EM output and aggregate it into the expected $2 \times 5$ dimension required for the Table 4 analogue. 
