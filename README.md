@@ -42,7 +42,7 @@ TraibermanReplication.run_tests()
 ```
 
 ## Compile the Technical Report
-The project includes a detailed Quarto report (report.qmd) containing the theoretical background, implementation details, and replication exhibits. To render the report to HTML, exit Julia and run the following command in your standard terminal:
+The project includes a detailed Quarto report (report.qmd) containing the theoretical background, implementation details, and replication exhibits. To render the report to HTML, that you can anyhow already see [here](https://debora-candela.github.io/TraibermanReplication/) exit Julia and run the following command in your standard terminal:
 
 ```bash
 quarto render report.qmd
